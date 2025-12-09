@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import NewHero from "@/components/NewHero";
 import Events from "@/components/Events";
 import RestaurantCarousel from "@/components/RestaurantCarousel";

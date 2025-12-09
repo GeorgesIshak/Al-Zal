@@ -34,9 +34,11 @@ const Navbar = () => {
             <span className="flex items-center gap-1 text-white">
               <Phone size={16} className="text-[#6b1415]" /> +966 55 601 8333 
             </span>
-            <span className="flex items-center gap-1 text-white">
-              <Clock size={16} className="text-[#6b1415]" /> Mon-Sat: 11AM - 23PM
-            </span>
+           <span className="flex items-center gap-1 text-white">
+  <Clock size={16} className="text-[#6b1415]" />
+  Sat–Wed: 8:00 AM – 12:00 AM | Thu–Fri: 8:00 AM – 2:00 AM
+</span>
+
           </div>
           <div className="hidden md:flex gap-4 items-center text-white">
             <ul className="flex gap-2 font-semibold text-[#white]">
