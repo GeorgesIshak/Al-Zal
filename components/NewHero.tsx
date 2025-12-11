@@ -1,16 +1,15 @@
 "use client";
 
-import React from "react";
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex items-center justify-center bg-cover bg-center pt-20"
+className="relative flex items-center justify-center bg-cover bg-center pt-20"
       style={{
-        backgroundImage: "url('/8.jpg')",
+        backgroundImage: "url('/alzal.webp')",
         backgroundAttachment: "fixed",
-        minHeight: "100vh",
+        minHeight: "110vh",
       }}
     >
       {/* Dark overlay for contrast */}
