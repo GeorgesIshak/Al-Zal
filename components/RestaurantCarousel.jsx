@@ -5,11 +5,49 @@ import { Autoplay, FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { restaurants } from "@/data/restaurants";
 
-export default function RestaurantCarousel() {
+export default function RestaurantCarouselWithHeader() {
   return (
-<section className="w-screen py-20 overflow-hidden ">
+    <section className="w-screen overflow-hidden bg-white">
+
+      {/* ===== EVENTS HEADER ===== */}
+      <motion.div 
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-10% 0px" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="max-w-[1440px] mx-auto px-6 md:px-16 pb-16 pt-32"
+      >
+        <div className="flex items-center gap-6 mb-6">
+          <motion.span 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-[14px] uppercase tracking-[0.3em] text-black"
+          >
+            Events
+          </motion.span>
+          <motion.div 
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ delay: 0.5, duration: 0.8, ease: "circOut" }}
+            className="flex-1 h-[1px] bg-black origin-left" 
+          />
+        </div>
+
+        <motion.h2 
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="max-w-[1100px] text-[5vw] md:text-[5rem] leading-tight font-s text-[#6b1415]"
+        >
+          Discover Our <br />Exciting Events
+        </motion.h2>
+      </motion.div>
+
+      {/* ===== RESTAURANT CAROUSEL ===== */}
       <Swiper
         modules={[Autoplay, FreeMode]}
         spaceBetween={24}
@@ -22,7 +60,7 @@ export default function RestaurantCarousel() {
           disableOnInteraction: false,
         }}
         grabCursor={true}
-        className="px-12"
+        className="px-12 py-20 "
       >
         {restaurants.map((item) => (
           <SwiperSlide
@@ -36,7 +74,7 @@ export default function RestaurantCarousel() {
                 src={item.image}
                 alt={item.name}
                 fill
-                className="object-cover transition-all duration-1000 group-hover:scale-105 group-hover:blur-sm"
+                className="object-cover transition-all duration-1000 group-hover:scale-105 group-hover:blur-sm "
               />
 
               {/* Always-on subtle black overlay */}

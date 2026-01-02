@@ -1,157 +1,228 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Phone, Clock, Menu } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
+export default function Header() {
+  const leftNavRef = useRef<HTMLDivElement | null>(null);
+  const rightNavRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const leftLinks = leftNavRef.current?.querySelectorAll("a");
+    const rightLinks = rightNavRef.current?.querySelectorAll("a");
+
+    if (leftLinks) {
+      gsap.from(leftLinks, {
+        y: -20,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.15,
+      });
+    }
+
+    if (rightLinks) {
+      gsap.from(rightLinks, {
+        y: -20,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.15,
+        delay: 0.2,
+      });
+    }
   }, []);
 
   return (
-    <>
-      {/* Topbar */}
-      <div
-        id="topbar"
-        className={`fixed inset-x-0 h-10 flex items-center justify-center transition-all duration-300 z-[996] ${
-          scrolled ? "translate-y-[-100%]" : "translate-y-0"
-        }`}
+    <header
+      className="absolute top-0 left-0 w-full z-50 grid px-8 py-4 gap-2"
+      style={{
+        gridTemplateColumns: "1fr auto 1fr",
+        gridTemplateRows: "auto auto",
+      }}
+    >
+      {/* LEFT NAV */}
+      <nav
+        ref={leftNavRef}
+        className="flex gap-10 uppercase font-medium text-[14px] tracking-wide text-white justify-self-start"
+        style={{ gridColumn: "1 / 2", gridRow: "2 / 3" }}
       >
-        <div className="max-w-7xl w-full px-6 flex justify-between items-center text-sm">
-          <div className="flex gap-6 items-center">
-            <span className="flex items-center gap-1 text-white">
-              <Phone size={16} className="text-[#6b1415]" /> +966 55 601 8333 
-            </span>
-           <span className="flex items-center gap-1 text-white">
-  <Clock size={16} className="text-[#6b1415]" />
-  Sat–Wed: 8:00 AM – 12:00 AM | Thu–Fri: 8:00 AM – 2:00 AM
-</span>
+        <Link href="#">Our Story</Link>
+      <Link href="#">Explore</Link>
+        <Link href="#">What's on</Link>
+      </nav>
 
-          </div>
-          <div className="hidden md:flex gap-4 items-center text-white">
-            <ul className="flex gap-2 font-semibold text-[#white]">
-              <li>EN</li>
-              <li className="text-[#6b1415]">/</li>
-              <li>AR</li>
-            </ul>
-          </div>
-        </div>
+      {/* LOGO */}
+      <div
+        style={{ gridArea: "1 / 2 / 2 span / 1 span", justifySelf: "center" }}
+        className="flex items-center"
+      >
+        <Image
+          src="/white-logo.png"
+          alt="Logo"
+          width={120}
+          height={200}
+          className="object-contain"
+          priority
+        />
       </div>
 
-      {/* Main Navbar */}
-      <header
-        id="header"
-        className={`fixed inset-x-0 z-[998] border-b transition-all duration-300 backdrop-blur-md`}
-        style={{
-          background: scrolled
-            ? "rgba(255,255,255,0.95)" // soft white on scroll
-            : "rgba(255,255,255,0.25)", // transparent when not scrolled
-          borderBottom: scrolled
-            ? "1px solid #6b1415"
-            : "1px solid transparent",
-          top: scrolled ? "0" : "40px",
-        }}
+      {/* RIGHT NAV */}
+      <nav
+        ref={rightNavRef}
+        className="flex gap-10 uppercase font-medium text-[14px] tracking-wide text-white justify-self-end"
+        style={{ gridColumn: "3 / 4", gridRow: "2 / 3" }}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-25">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="Al Zal Logo"
-              width={190}
-              height={80}
-              className="object-contain"
-            />
-          </Link>
+        <Link href="#">Events</Link>
+     
+             <Link href="#">Food & Drink</Link>
+        <Link href="#">Vendors</Link>
+      </nav>
 
-          {/* Desktop Menu */}
-          <nav className="hidden lg:flex gap-8 font-medium items-center">
-            <Link
-              href="/"
-              className={`transition ${scrolled ? "text-[#1f1f1f] hover:text-[#6b1415]" : "text-white hover:text-[#6b1415]"}`}
-            >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              className={`transition ${scrolled ? "text-[#1f1f1f] hover:text-[#6b1415]" : "text-white hover:text-[#6b1415]"}`}
-            >
-              Our Story
-            </Link>
-            <Link
-              href="/menu"
-              className={`transition ${scrolled ? "text-[#1f1f1f] hover:text-[#6b1415]" : "text-white hover:text-[#6b1415]"}`}
-            >
-              Food & Drink
-            </Link>
-            <Link
-              href="/specials"
-              className={`transition ${scrolled ? "text-[#1f1f1f] hover:text-[#6b1415]" : "text-white hover:text-[#6b1415]"}`}
-            >
-              What's on
-            </Link>
-            <Link
-              href="/events"
-              className={`transition ${scrolled ? "text-[#1f1f1f] hover:text-[#6b1415]" : "text-white hover:text-[#6b1415]"}`}
-            >
-              Events
-            </Link>
-            <Link
-              href="/chefs"
-              className={`transition ${scrolled ? "text-[#1f1f1f] hover:text-[#6b1415]" : "text-white hover:text-[#6b1415]"}`}
-            >
-              Explore 
-            </Link>
-            <Link
-              href="/gallery"
-              className={`transition ${scrolled ? "text-[#1f1f1f] hover:text-[#6b1415]" : "text-white hover:text-[#6b1415]"}`}
-            >
-              Vendors
-            </Link>
-            <Link
-              href="/contact"
-              className={`transition ${scrolled ? "text-[#1f1f1f] hover:text-[#6b1415]" : "text-white hover:text-[#6b1415]"}`}
-            >
-              Gallery
-            </Link>
-          </nav>
-
-          {/* CTA */}
-          <Link
-            href="/book"
-            className={`hidden lg:inline-block border-2 px-6 py-2 rounded-full text-sm uppercase tracking-wide transition ${
-              scrolled
-                ? "border-[#6b1415] text-[#6b1415] hover:bg-[#6b1415]/10"
-                : "border-[#6b1415] text-[#6b1415] hover:bg-white/10"
-            }`}
-          >
-            Join Us
-          </Link>
-
-          {/* Mobile Toggle */}
-          <button
-            className={`lg:hidden p-2 rounded-md transition ${
-              scrolled ? "text-[#1f1f1f] border-[#6b1415] hover:bg-[#c7ad74]/10" : "text-white border-white hover:bg-white/10"
-            }`}
-          >
-            <Menu size={20} />
-          </button>
-        </div>
-      </header>
-    </>
+      {/* AR/EN SWITCHER */}
+      <div
+        style={{ gridColumn: "3 / 4", gridRow: "1 / 2", justifySelf: "end" }}
+        className="flex items-center uppercase font-medium text-[14px] text-white gap-2"
+      >
+        <button>EN</button>
+        <span>|</span>
+        <button>AR</button>
+      </div>
+    </header>
   );
-};
+}
 
-export default Navbar;
+// "use client";
+
+// import { useEffect, useRef, useState } from "react";
+// import Image from "next/image";
+// import gsap from "gsap";
+
+// export default function Topbar() {
+//   const leftRef = useRef<HTMLDivElement | null>(null);
+//   const rightRef = useRef<HTMLDivElement | null>(null);
+//   const logoRef = useRef<HTMLDivElement | null>(null);
+//   const containerRef = useRef<HTMLDivElement | null>(null);
+
+//   const [isDark, setIsDark] = useState(true);
+
+//   // GSAP intro animation
+//   useEffect(() => {
+//     if (
+//       !leftRef.current ||
+//       !rightRef.current ||
+//       !logoRef.current ||
+//       !containerRef.current
+//     )
+//       return;
+
+//     const tl = gsap.timeline({
+//       defaults: { duration: 0.8, ease: "power3.out" },
+//     });
+
+//     gsap.set(containerRef.current, { width: 100 });
+//     gsap.set(leftRef.current, { x: -50, opacity: 0 });
+//     gsap.set(rightRef.current, { x: 50, opacity: 0 });
+//     gsap.set(logoRef.current, { scale: 0, opacity: 0 });
+
+//     tl.to(containerRef.current, { width: 480, delay: 1 })
+//       .to(
+//         logoRef.current,
+//         {
+//           scale: 1,
+//           opacity: 1,
+//           duration: 0.6,
+//           ease: "back.out(1.7)",
+//         },
+//         "<0.2"
+//       )
+//       .to(leftRef.current, { x: 0, opacity: 1 }, "<0.1")
+//       .to(rightRef.current, { x: 0, opacity: 1 }, "<0.1");
+//   }, []);
+
+//   // Detect background color via sections
+//   useEffect(() => {
+//     const sections = document.querySelectorAll(".dark-section");
+
+//     const observer = new IntersectionObserver(
+//       (entries) => {
+//         entries.forEach((entry) => {
+//           if (entry.isIntersecting) {
+//             setIsDark(true);
+//           } else {
+//             setIsDark(false);
+//           }
+//         });
+//       },
+//       {
+//         rootMargin: "-60px 0px -80% 0px",
+//       }
+//     );
+
+//     sections.forEach((section) => observer.observe(section));
+
+//     return () => observer.disconnect();
+//   }, []);
+
+//   const color = isDark ? "white" : "black";
+
+//   return (
+//     <div className="fixed top-10 left-1/2 z-50 -translate-x-1/2">
+//       <div
+//         ref={containerRef}
+//         className={`flex items-center justify-around h-[50px] rounded-2xl relative transition-colors duration-300
+//           border-2 border-${color}`}
+//       >
+//         {/* LEFT */}
+//         <div
+//           ref={leftRef}
+//           className={`flex items-center justify-center h-full px-4 cursor-pointer
+//             hover:bg-${color === "white" ? "white/10" : "black/10"}`}
+//         >
+//           <span
+//             className={`font-bold uppercase tracking-wider text-${color}`}
+//           >
+//             BOOK
+//           </span>
+//         </div>
+
+//         {/* RIGHT */}
+//         <div
+//           ref={rightRef}
+//           className="flex items-center justify-center h-full px-4 cursor-pointer group"
+//         >
+//           <div className="flex flex-col justify-between h-5 w-6">
+//             <span
+//               className={`block w-11 h-0.5 rounded bg-${color} transition-transform duration-200 group-hover:scale-x-125`}
+//             />
+//             <span
+//               className={`block w-11 h-0.5 rounded bg-${color} transition-transform duration-200 group-hover:scale-x-125`}
+//             />
+//           </div>
+//         </div>
+
+//         {/* LOGO */}
+//         <div
+//           ref={logoRef}
+//           className={`absolute left-1/2 top-1/2
+//             -translate-x-1/2 -translate-y-1/2
+//             w-[76px] h-[76px]
+//             rounded-full
+//             border-2 border-${color}
+//             flex items-center justify-center`}
+//         >
+//           <Image
+//             src="/logo-circle.png"
+//             alt="Logo"
+//             width={60}
+//             height={60}
+//             priority
+//             className="object-contain"
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }

@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${alZalFont.variable} antialiased bg-white`}
+        className={`${alZalFont.variable} antialiased `}
       >
         <Navbar />
         {children}

@@ -23,10 +23,190 @@
 
 body {
     overflow-x: hidden;
-   background-color: #fffdf4;
 
 }
 
 h1,h2,h3,h4,h5,h6 {
     font-family: var(--font-alzal) ;
+}
+
+
+.section__title {
+  font-family: sans-serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 17vw, 12.5rem);
+  margin: 5vh 0 6vh;
+  line-height: 0.9;
+  text-transform: none;
+}
+
+.column-wrap:nth-child(even) {
+  margin-top: 20vh;
+}
+
+.column__item-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: 50% 50%;
+  will-change: transform;
+} 
+
+
+.content-title::before {
+  font-weight: 400;
+  display: block;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* ScrollImages.module.scss */
+.container {
+  height: 300vh;
+  position: relative;
+background:white;
+  .sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+
+    .el {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .imageContainer {
+        position: relative;
+        width: 25vw;
+        height: 25vh;
+
+        img {
+          object-fit: cover;
+        }
+      }
+
+      &:nth-of-type(2) .imageContainer {
+        top: -30vh;
+        left: 5vw;
+        width: 35vw;
+        height: 30vh;
+      }
+      &:nth-of-type(3) .imageContainer {
+        top: -10vh;
+        left: -25vw;
+        width: 20vw;
+        height: 45vh;
+      }
+      &:nth-of-type(4) .imageContainer {
+        left: 27.5vw;
+        width: 25vw;
+        height: 25vh;
+      }
+      &:nth-of-type(5) .imageContainer {
+        top: 27.5vh;
+        left: 5vw;
+        width: 20vw;
+        height: 25vh;
+      }
+      &:nth-of-type(6) .imageContainer {
+        top: 27.5vh;
+        left: -22.5vw;
+        width: 30vw;
+        height: 25vh;
+      }
+      &:nth-of-type(7) .imageContainer {
+        top: 22.5vh;
+        left: 25vw;
+        width: 15vw;
+        height: 15vh;
+      }
+    }
+  }
+}
+.preloader {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #141516;
+  z-index: 9999; /* Very high to ensure it's on top of everything */
+  overflow: hidden;
+}
+
+.preloader svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.preloader p {
+  display: flex;
+  color: white;
+  font-size: 42px;
+  align-items: center;
+  position: absolute;
+  z-index: 10000; /* higher than preloader container for safety */
+}
+
+.preloader p span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.vertical-text {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+}
+
+
+
+.paragraph-lines {
+  position: relative;
+  width: 100%;
+}
+
+.paragraph-text {
+  position: relative;
+  font-size: 2rem;
+  line-height: 1.4;
+}
+
+.p-line {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.line-back-color {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: #e5e5e5; /* highlight color */
+  z-index: -1;
 }
